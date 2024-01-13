@@ -1,13 +1,95 @@
 @include('Chatify::layouts.headLinks')
-<div class="messenger">
+<!-- Navbar Start -->
+<nav id="header" class="fixed z-30 w-full mt-0 bg-[#176D1F] py-1">
+    <div class="lg:container flex flex-wrap items-center justify-between w-full py-1 px-1 sm:px-3 2xl:px-8 mx-auto mt-0 transition duration-700 ease-in-out transform">
+        <div class="flex items-center gap-x-4 pl-6 sm:pl-2">
+            <a href="#">
+                <img width="130" src="{{URL::to('design/images/logo.png')}}" alt="" srcset="">
+            </a>
+        </div>
+        @php
+            $authUser = Auth::user();
+        @endphp
+            <!-- for mobile menu start -->
+        <div class="flex gap-x-3 items-center">
+            <div class="relative mr-0 block lg:hidden" data-te-dropdown-ref>
+                <div class="flex items-center hidden-arrow bg-white rounded-full" id="dropdownMenuButton1" data-te-dropdown-toggle-ref aria-expanded="false" data-te-ripple-init data-te-ripple-color="light">
+                    @if($authUser->profile_photo!=null)
+                        <img src="{{asset('/storage/users-avatar/'.$authUser->avatar)}}" class="w-8 h-8 md:w-10 md:h-10 rounded-full shadow-lg" alt="">
+                    @else
+                        <img src="{{URL::to('design/images/profile.jpeg')}}" class="w-8 h-8 md:w-10 md:h-10 rounded-full shadow-lg" alt="">
+                    @endif
+                </div>
+                <div class="absolute left-auto z-50 hidden float-left m-0 mt-0 overflow-hidden text-base text-left list-none bg-white border-none rounded-lg shadow-lg -right-20 md:right-0 dropdown-menu min-w-max bg-clip-padding [&[data-te-dropdown-show]]:block" aria-labelledby="dropdownMenuButton1" data-te-dropdown-menu-ref>
+                    <ul class="p-2">
+                        <li class="mt-0.5">
+                            <a  class="block min-w-[8rem] text-center text-black w-full px-2 py-2 text-[14px] font-medium bg-white rounded-md dropdown-item whitespace-nowrap transition-all hover:text-white hover:bg-[#62BB46]" href="#" data-te-dropdown-item-ref>Home</a>
+                        </li>
+                        <li class="mt-0.5">
+                            <a  class="block min-w-[8rem] text-center text-black w-full px-2 py-2 text-[14px] font-medium bg-white rounded-md dropdown-item whitespace-nowrap transition-all hover:text-white hover:bg-[#62BB46]" href="#" data-te-dropdown-item-ref>My Profile</a>
+                        </li>
+                        <li class="mt-0.5">
+                            <form id="logoutForm" action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button type="submit" class="hidden"></button>
+                            </form>
+                            <a
+                                class="block min-w-[8rem] text-black w-full text-center px-2 py-2 text-[14px] font-medium bg-white rounded-md dropdown-item whitespace-nowrap transition-all hover:text-white hover:bg-[#62BB46]"
+                                href="#" data-te-dropdown-item-ref
+                                onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"
+                            >
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- for mobile menu end -->
+        <div class="relative mr-2 hidden lg:block cursor-pointer" data-te-dropdown-ref>
+            <div class="flex items-center bg-white rounded-full" id="dropdownMenuButton1" data-te-dropdown-toggle-ref aria-expanded="false" data-te-ripple-init data-te-ripple-color="light">
+                @if($authUser->profile_photo!=null)
+                    <img src="{{asset('/storage/users-avatar/'.$authUser->avatar)}}" class="w-8 h-8 md:w-10 md:h-10 rounded-full shadow-lg" alt="">
+                @else
+                    <img src="{{URL::to('design/images/profile.jpeg')}}" class="w-8 h-8 md:w-10 md:h-10 rounded-full shadow-lg" alt="">
+                @endif
+            </div>
+            <div class="absolute left-auto z-50 hidden float-left top-10 overflow-hidden text-base text-left list-none bg-white border-none rounded-lg shadow-lg -right-20 md:-right-80 dropdown-menu min-w-max bg-clip-padding [&[data-te-dropdown-show]]:block" aria-labelledby="dropdownMenuButton1" data-te-dropdown-menu-ref>
+                <ul class="p-2">
+                    <li class="mt-0.5">
+                        <a class="block min-w-[8rem] text-black text-center w-full px-2 py-2 text-[14px] font-medium bg-white rounded-md dropdown-item whitespace-nowrap transition-all hover:text-white hover:bg-[#62BB46]" href="#" data-te-dropdown-item-ref>My Profile</a>
+                    </li>
+                    <li class="mt-0.5">
+                        <form id="logoutForm" action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button type="submit" class="hidden"></button>
+                        </form>
+                        <a
+                            class="block min-w-[8rem] text-black w-full text-center px-2 py-2 text-[14px] font-medium bg-white rounded-md dropdown-item whitespace-nowrap transition-all hover:text-white hover:bg-[#62BB46]"
+                            href="#" data-te-dropdown-item-ref
+                            onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"
+                        >
+                            Logout
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+
+
+<div class="messenger" style="  margin-top: 55px;">
     {{-- ----------------------Users/Groups lists side---------------------- --}}
     <div class="messenger-listView {{ !!$id ? 'conversation-active' : '' }}">
         {{-- Header and search bar --}}
         <div class="m-header">
-            <nav style="background-color: #1e8a53;">
+            <nav style="background-color: #9ca39f;">
                 <a href="#" style="color: white;">
-                    <i class="fas fa-inbox"></i> <span class="messenger-headTitle">MY MITALI MESSAGES</span>
-{{--                    <img src="{{URL::to('design/images/logo.png')}}" alt="">--}}
+                    <i class="fas fa-inbox"></i> <span class="messenger-headTitle">MESSAGES</span>
                 </a>
                 {{-- header buttons --}}
                 <nav class="m-header-right">
@@ -16,12 +98,7 @@
                 </nav>
             </nav>
             {{-- Search input --}}
-            <input type="text" class="messenger-search" placeholder="Search" />
-            {{-- Tabs --}}
-            {{-- <div class="messenger-listView-tabs">
-                <a href="#" class="active-tab" data-view="users">
-                    <span class="far fa-user"></span> Contacts</a>
-            </div> --}}
+            <input type="text" style="margin-top: 10px;" class="messenger-search" placeholder="Search" />
         </div>
         {{-- tabs and lists --}}
         <div class="m-body contacts-container">
@@ -54,7 +131,7 @@
     {{-- ----------------------Messaging side---------------------- --}}
     <div class="messenger-messagingView">
         {{-- header title [conversation name] amd buttons --}}
-        <div class="m-header m-header-messaging" style="background-color: #1e8a53;">
+        <div class="m-header m-header-messaging" style="background-color: #9ca39f;">
             <nav class="chatify-d-flex chatify-justify-content-between chatify-align-items-center">
                 {{-- header back button, avatar and user name --}}
                 <div class="chatify-d-flex chatify-justify-content-between chatify-align-items-center">
@@ -101,24 +178,9 @@
         @include('Chatify::layouts.sendForm')
     </div>
     {{-- ---------------------- Info side ---------------------- --}}
-    <div class="messenger-infoView app-scroll">
-        {{-- nav actions --}}
-        <nav>
-            <p>User Details</p>
-            <p>
-                <form id="logoutForm" action="{{ route('logout') }}" method="post">
-                    @csrf
-                    <button type="submit" class="hidden"></button>
-                </form>
-                <a href="#" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
-                    Logout
-                </a>
-            </p>
-            <a href="#"><i class="fas fa-times"></i></a>
-        </nav>
+    <div class="messenger-infoView app-scroll" >
         {!! view('Chatify::layouts.info')->render() !!}
     </div>
 </div>
-
 @include('Chatify::layouts.modals')
 @include('Chatify::layouts.footerLinks')
