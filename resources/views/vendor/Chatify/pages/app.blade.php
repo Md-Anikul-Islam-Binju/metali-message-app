@@ -23,10 +23,7 @@
                 <div class="absolute left-auto z-50 hidden float-left m-0 mt-0 overflow-hidden text-base text-left list-none bg-white border-none rounded-lg shadow-lg -right-20 md:right-0 dropdown-menu min-w-max bg-clip-padding [&[data-te-dropdown-show]]:block" aria-labelledby="dropdownMenuButton1" data-te-dropdown-menu-ref>
                     <ul class="p-2">
                         <li class="mt-0.5">
-                            <a  class="block min-w-[8rem] text-center text-black w-full px-2 py-2 text-[14px] font-medium bg-white rounded-md dropdown-item whitespace-nowrap transition-all hover:text-white hover:bg-[#62BB46]" href="#" data-te-dropdown-item-ref>Home</a>
-                        </li>
-                        <li class="mt-0.5">
-                            <a  class="block min-w-[8rem] text-center text-black w-full px-2 py-2 text-[14px] font-medium bg-white rounded-md dropdown-item whitespace-nowrap transition-all hover:text-white hover:bg-[#62BB46]" href="#" data-te-dropdown-item-ref>My Profile</a>
+                            <a  class="block min-w-[8rem] text-center text-black w-full px-2 py-2 text-[14px] font-medium bg-white rounded-md dropdown-item whitespace-nowrap transition-all hover:text-white hover:bg-[#62BB46]" href="https://mymetali.com/profile" data-te-dropdown-item-ref>My Profile</a>
                         </li>
                         <li class="mt-0.5">
                             <form id="logoutForm" action="{{ route('logout') }}" method="post">
@@ -57,7 +54,7 @@
             <div class="absolute left-auto z-50 hidden float-left top-10 overflow-hidden text-base text-left list-none bg-white border-none rounded-lg shadow-lg -right-20 md:-right-80 dropdown-menu min-w-max bg-clip-padding [&[data-te-dropdown-show]]:block" aria-labelledby="dropdownMenuButton1" data-te-dropdown-menu-ref>
                 <ul class="p-2">
                     <li class="mt-0.5">
-                        <a class="block min-w-[8rem] text-black text-center w-full px-2 py-2 text-[14px] font-medium bg-white rounded-md dropdown-item whitespace-nowrap transition-all hover:text-white hover:bg-[#62BB46]" href="#" data-te-dropdown-item-ref>My Profile</a>
+                        <a class="block min-w-[8rem] text-black text-center w-full px-2 py-2 text-[14px] font-medium bg-white rounded-md dropdown-item whitespace-nowrap transition-all hover:text-white hover:bg-[#62BB46]" href="https://mymetali.com/profile" data-te-dropdown-item-ref>My Profile</a>
                     </li>
                     <li class="mt-0.5">
                         <form id="logoutForm" action="{{ route('logout') }}" method="post">
@@ -181,6 +178,22 @@
     <div class="messenger-infoView app-scroll" >
         {!! view('Chatify::layouts.info')->render() !!}
     </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{asset('design/js/script.js')}}"></script>
+    <script>
+        var menuItems = document.getElementsByClassName("menu-item");
+        for (var i = 0; i < menuItems.length; i++) {
+            menuItems[i].addEventListener("click", function() {
+                var current = document.getElementsByClassName("active-item");
+                current[0].classList.remove('active-item');
+                this.getElementsByTagName('a')[0].classList.add('active-item');
+            });
+        }
+    </script>
 </div>
 @include('Chatify::layouts.modals')
 @include('Chatify::layouts.footerLinks')
