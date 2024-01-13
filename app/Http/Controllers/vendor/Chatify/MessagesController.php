@@ -220,11 +220,13 @@ class MessagesController extends Controller
      */
     public function getContacts(Request $request)
     {
+
         // get all users that received/sent message from/to [Auth user]
         $users = Message::join('users',  function ($join) {
             $join->on('ch_messages.from_id', '=', 'users.id')
                 ->orOn('ch_messages.to_id', '=', 'users.id');
         })
+
         ->where(function ($q) {
             $q->where('ch_messages.from_id', Auth::user()->id)
             ->orWhere('ch_messages.to_id', Auth::user()->id);
@@ -234,6 +236,8 @@ class MessagesController extends Controller
         ->orderBy('max_created_at', 'desc')
         ->groupBy('users.id')
         ->paginate($request->per_page ?? $this->perPage);
+
+
 
         $usersList = $users->items();
 

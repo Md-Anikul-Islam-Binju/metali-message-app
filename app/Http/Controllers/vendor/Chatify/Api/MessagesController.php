@@ -221,7 +221,6 @@ class MessagesController extends Controller
         ->orderBy('max_created_at', 'desc')
         ->groupBy('users.id')
         ->paginate($request->per_page ?? $this->perPage);
-
         return response()->json([
             'contacts' => $users->items(),
             'total' => $users->total() ?? 0,
